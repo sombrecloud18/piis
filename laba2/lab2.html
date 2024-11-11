@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>База данных фильмов</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>База фильмов</h1>
+    <div id="movieTable"></div>
+
+    <script>
+
+        const personalMovieDB = {
+            privat: false,
+            movies: {
+                "Отчаянные домохозяйки": 10,
+                "Гадкий я": 9,
+                "Огонь": 10
+            }
+        };
+
+        function displayMovies() {
+            const movieTable = document.getElementById('movieTable');
+            let tableHTML = '<table><tr><th>Название фильма</th><th>Оценка</th></tr>';
+
+            for (let movie in personalMovieDB.movies) {
+                tableHTML += `<tr><td>${movie}</td><td>${personalMovieDB.movies[movie]}</td></tr>`;
+            }
+
+            tableHTML += '</table>';
+            movieTable.innerHTML = tableHTML;
+        }
+
+        if (!personalMovieDB.privat) {
+            displayMovies();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shirt Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .shirt-details { max-width: 600px; margin: auto; }
+        .color-button, .view-button { display: inline-block; margin: 5px; padding: 10px; border: 1px solid #ccc; cursor: pointer; }
+        img { max-width: 100%; height: auto; }
+        .view-buttons { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="shirt-details" id="shirt-details"></div>
+
+    <script src="shirts.js"></script>
+    <script>
+        function displayShirtDetails() {
+            const shirtDetailsContainer = document.getElementById('shirt-details');
+            const shirtId = localStorage.getItem('selectedShirtId');
+
+            if (shirtId && shirts[shirtId]) {
+                const shirt = shirts[shirtId];
+                const shirtName = document.createElement('h2');
+                shirtName.textContent = shirt.name || "Без названия";
+
+                const img = document.createElement('img');
+                img.src = shirt.default.front; // Начальное изображение (переднее)
+
+                const colorButtonsContainer = document.createElement('div');
+                let selectedColor = Object.keys(shirt.colors)[0]; // Устанавливаем первый цвет как выбранный
+
+                Object.keys(shirt.colors).forEach(color => {
+                    const colorButton = document.createElement('div');
+                    colorButton.textContent = color;
+                    colorButton.className = 'color-button';
+                    colorButton.style.backgroundColor = color;
+                    colorButton.onclick = () => {
+                        selectedColor = color; // Обновляем выбранный цвет
+                        img.src = shirt.colors[color].front || shirt.default.front; // Обновляем изображение на переднюю сторону
+                    };
+                    colorButtonsContainer.appendChild(colorButton);
+                });
+
+                // Кнопки для просмотра передней и задней стороны
+                const viewButtonsContainer = document.createElement('div');
+                viewButtonsContainer.className = 'view-buttons';
+
+                const frontButton = document.createElement('div');
+                frontButton.textContent = 'Front';
+                frontButton.className = 'view-button';
+                frontButton.onclick = () => {
+                    img.src = shirt.colors[selectedColor].front || shirt.default.front; // Обновляем изображение на переднюю сторону
+                };
+
+                const backButton = document.createElement('div');
+                backButton.textContent = 'Back';
+                backButton.className = 'view-button';
+                backButton.onclick = () => {
+                    img.src = shirt.colors[selectedColor].back || shirt.default.back; // Обновляем изображение на заднюю сторону
+                };
+
+                viewButtonsContainer.appendChild(frontButton);
+                viewButtonsContainer.appendChild(backButton);
+
+                shirtDetailsContainer.appendChild(shirtName);
+                shirtDetailsContainer.appendChild(img);
+                shirtDetailsContainer.appendChild(colorButtonsContainer);
+                shirtDetailsContainer.appendChild(viewButtonsContainer);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', displayShirtDetails);
+    </script>
+</body>
+</html>
