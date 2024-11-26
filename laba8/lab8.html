@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини графический редактор на Canvas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            width: 100%;
+            height: 80vh;
+            display: block;
+        }
+
+        .toolbar {
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="toolbar">
+    <button id="circleButton">Круг</button>
+    <button id="rectangleButton">Прямоугольник</button>
+    <button id="clearButton">Очистить</button>
+</div>
+<canvas id="drawingCanvas"></canvas>
+
+<script src="input.js">
+</script>
+
+</body>
+</html>
